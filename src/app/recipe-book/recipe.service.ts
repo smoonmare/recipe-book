@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Recipe } from './recipe.interface';
 
 @Injectable({
@@ -17,6 +17,7 @@ export class RecipeService {
       imagePath: 'https://live.staticflickr.com/65535/51007612197_4001c29eae_b.jpg'
     }
   ];
+  recipeSelected = new EventEmitter<Recipe>();
 
   constructor() { }
 
