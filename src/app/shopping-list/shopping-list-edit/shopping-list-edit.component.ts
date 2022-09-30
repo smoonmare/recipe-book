@@ -1,5 +1,5 @@
 import { Component, OnInit, Output } from '@angular/core';
-import { EventEmitter } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Ingredient } from 'src/app/shared/ingredient.interface';
 import { ShoppingListService } from '../shopping-list.service';
 
@@ -15,10 +15,13 @@ export class ShoppingListEditComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onAddItem(inputName: HTMLInputElement, inputAmount: HTMLInputElement) {
-    const newIngredient: Ingredient = {
-      name: inputName.value ? inputName.value : 'Ingredient Name',
-      amount: inputAmount.value ? inputAmount.valueAsNumber : 0 };
+  onAddItem(form: NgForm) {
+    // const newIngredient: Ingredient = {
+    //   name: inputName.value ? inputName.value : 'Ingredient Name',
+    //   amount: inputAmount.value ? inputAmount.valueAsNumber : 0 };
+
+    const value = form.value;
+    const newIngredient: Ingredient = {name: value.name, amount: value.amount};
     this.shoppingService.addIngredient(newIngredient);
     // this.ingredientAdded.emit({
     //   name: inputName.value ? inputName.value : 'Ingredient Name',
