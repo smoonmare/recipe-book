@@ -101,7 +101,11 @@ export class RecipeEditComponent implements OnInit {
         ])
       })
     );
-  }  
+  }
+
+  onDeleteIngredient(index: number){
+    (this.recipeForm.get('ingredients') as FormArray).removeAt(index);
+  }
 
   get ingredientsControls(){
     return (this.recipeForm.get('ingredients') as FormArray).controls;
