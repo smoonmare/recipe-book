@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { RecipeService } from '../recipe.service';
 
-import { Recipe } from '../recipe.interface';
+// import { Recipe } from '../recipe.interface';
 
 @Component({
   selector: 'app-recipe-edit',
@@ -15,7 +15,10 @@ export class RecipeEditComponent implements OnInit {
   editMode = false;
   recipeForm!: FormGroup;
 
-  constructor(private route: ActivatedRoute, private recipeService: RecipeService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private recipeService: RecipeService) { }
 
   ngOnInit(): void {
     this.route.params
@@ -27,40 +30,6 @@ export class RecipeEditComponent implements OnInit {
           this.initForm();
         }
       );
-  }
-
-  onSubmit() {
-    // const newRecipe: Recipe = (
-    //   this.recipeForm.value['name'],
-    //   this.recipeForm.value['description'],
-    //   this.recipeForm.value['imagePath'],
-    //   this.recipeForm.value['ingredients']);
-    // if (this.editMode) {
-    //   this.recipeService.updateRecipe(this.id!, newRecipe);
-    // } else {
-    //   this.recipeService.addRecipe(newRecipe);
-    // }
-    if (this.editMode) {
-      this.recipeService.updateRecipe(this.id!, this.recipeForm.value);
-    } else {
-      this.recipeService.addRecipe(this.recipeForm.value);
-    }
-  }
-
-  onAddIngredient(){
-    (this.recipeForm.get('ingredients') as FormArray).push(
-      new FormGroup({
-        'name': new FormControl(null, Validators.required),
-        'amount': new FormControl(null, [
-          Validators.required,
-          Validators.pattern(/^[1-9]+[0-9]*$/)
-        ])
-      })
-    );
-  }  
-
-  get ingredientsControls(){
-    return (this.recipeForm.get('ingredients') as FormArray).controls;
   }
 
   private initForm() {
@@ -99,4 +68,42 @@ export class RecipeEditComponent implements OnInit {
     });
   }
 
+  onSubmit() {
+    // const newRecipe: Recipe = (
+    //   this.recipeForm.value['name'],
+    //   this.recipeForm.value['description'],
+    //   this.recipeForm.value['imagePath'],
+    //   this.recipeForm.value['ingredients']);
+    // if (this.editMode) {
+    //   this.recipeService.updateRecipe(this.id!, newRecipe);
+    // } else {
+    //   this.recipeService.addRecipe(newRecipe);
+    // }
+    if (this.editMode) {
+      this.recipeService.updateRecipe(this.id!, this.recipeForm.value);
+    } else {
+      this.recipeService.addRecipe(this.recipeForm.value);
+    }
+    this.onCancel();
+  }
+
+  onCancel(){
+    this.router.navigate(['../'], {relativeTo: this.route});
+  }
+
+  onAddIngredient(){
+    (this.recipeForm.get('ingredients') as FormArray).push(
+      new FormGroup({
+        'name': new FormControl(null, Validators.required),
+        'amount': new FormControl(null, [
+          Validators.required,
+          Validators.pattern(/^[1-9]+[0-9]*$/)
+        ])
+      })
+    );
+  }  
+
+  get ingredientsControls(){
+    return (this.recipeForm.get('ingredients') as FormArray).controls;
+  }
 }
