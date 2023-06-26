@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RecipeService } from '../recipe-book/recipe.service';
 import { Recipe } from '../recipe-book/recipe.interface';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -23,11 +24,19 @@ export class DataStorageService {
   }
 
   fetchRecipes() {
-    this.http
+    return this.http
       .get<Recipe[]>('https://recipe-book-62257-default-rtdb.firebaseio.com/recipes.json')
-      .subscribe(recipes => {
-        console.log('Recipes are fetched. Response:\n', recipes);
-        this.recipeService.setRecipes(recipes);
-      });
+      .pipe(
+        map(recipes => {
+          // map - javascript array method
+          return recipes.map(recipe => {
+            return {...recipe, ingredients: recipe.ingredients ? recipe.ingredients : []};
+          });
+        }),
+        tap(recipes => {
+          console.log('Recipes are fetched. Response:\n', recipes);
+          this.recipeService.setRecipes(recipes);
+        })
+      );
   }
 }
