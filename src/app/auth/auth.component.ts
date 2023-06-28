@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from './auth.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
@@ -9,6 +10,8 @@ import { AuthService } from './auth.service';
 })
 export class AuthComponent implements OnInit {
   isLoginModeOn = true;
+  isLoading = false;
+  error = '';
 
   constructor(private authService: AuthService) { }
 
@@ -25,6 +28,7 @@ export class AuthComponent implements OnInit {
     const email = form.value.email;
     const password = form.value.password;
 
+    this.isLoading = true;
     if (this.isLoginModeOn) {
       // ...
     } else {
@@ -33,9 +37,15 @@ export class AuthComponent implements OnInit {
       .subscribe({
         next: (res) => {
           console.log(res);
+          this.isLoading = false;
         },
-        error: (error) => {
-          console.log(error);
+        error: (errorRes) => {
+          if (errorRes.error.error.message === 'EMAIL_EXISTS') {
+            this.error = 'This email alrede exists on our service. Plase try using a different one.';
+          } else {
+            this.error = errorRes.error.error.message;
+          }
+          this.isLoading = false;
         }
       });
     }
