@@ -7,7 +7,7 @@ import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.compo
 import { RecipeStartComponent } from './recipe-book/recipe-start/recipe-start.component';
 
 import { ShoppingListComponent } from './shopping-list/shopping-list/shopping-list.component';
-import { AuthComponent } from './auth/auth/auth.component';
+import { AuthComponent } from './auth/auth.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: 'full' },

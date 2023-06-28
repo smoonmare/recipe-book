@@ -4,8 +4,10 @@ import { key as apiKey} from 'src/environments/environment';
 
 interface AuthResponseData {
   idToken: string,
-  refreshToken: string;
-  expiresIn: string
+  email: string,
+  refreshToken: string,
+  expiresIn: string,
+  localId: string
 }
 
 @Injectable({
@@ -17,7 +19,7 @@ export class AuthService {
 
   signUp(email: string, password: string) {
      return this.http.post<AuthResponseData>(
-      `https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=${apiKey}`,
+      `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${apiKey}`,
       {
         email: email,
         password: password,
