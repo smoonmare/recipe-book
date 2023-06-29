@@ -26,27 +26,19 @@ export class DataStorageService {
   }
 
   fetchRecipes() {
-    return this.authService.user
-      .pipe(
-        take(1),
-        exhaustMap(user => {
-          return this.http.get<Recipe[]>(
-            'https://recipe-book-62257-default-rtdb.firebaseio.com/recipes.json',
-            {
-              params: new HttpParams().set('auth', `${user!.token}`)
-            }
-          );
-        }),
-        map(recipes => {
-          // map - javascript array method
-          return recipes.map(recipe => {
-            return {...recipe, ingredients: recipe.ingredients ? recipe.ingredients : []};
-          });
-        }),
-        tap(recipes => {
-          console.log('Recipes are fetched. Response:\n', recipes);
-          this.recipeService.setRecipes(recipes);
-        })
-      )
+    return this.http.get<Recipe[]>(
+      'https://recipe-book-62257-default-rtdb.firebaseio.com/recipes.json'
+    ).pipe(
+      map(recipes => {
+        // map - javascript array method
+        return recipes.map(recipe => {
+          return { ...recipe, ingredients: recipe.ingredients ? recipe.ingredients : [] };
+        });
+      }),
+      tap(recipes => {
+        console.log('Recipes are fetched. Response:\n', recipes);
+        this.recipeService.setRecipes(recipes);
+      })
+    )
   }
 }
