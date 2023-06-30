@@ -22,10 +22,8 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li
-          *ngIf="isAuthenticated"
-        >
-          <a>LogOut</a>
+        <li *ngIf="isAuthenticated">
+          <a (click)="onLogOut()">LogOut</a>
         </li>
         <li 
           class="dropdown"
