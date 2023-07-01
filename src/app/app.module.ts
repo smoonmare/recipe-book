@@ -21,6 +21,7 @@ import { RecipeStartComponent } from './recipe-book/recipe-start/recipe-start.co
 import { RecipeEditComponent } from './recipe-book/recipe-edit/recipe-edit.component';
 import { LoadingComponent } from './shared/loading-spinner/loading/loading.component';
 import { AlertComponent } from './shared/alert/alert.component';
+import { PlaceholderDirective } from './shared/alert/placeholder.directive';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { AlertComponent } from './shared/alert/alert.component';
     RecipeEditComponent,
     AuthComponent,
     LoadingComponent,
-    AlertComponent
+    AlertComponent,
+    PlaceholderDirective
   ],
   imports: [
     BrowserModule,
