@@ -18,13 +18,15 @@ import { RecipesRoutingModule } from './recipes-routing.module';
     RecipeBookComponent,
     RecipeEditComponent
   ],
-  exports: [
-    RecipeListComponent,
-    RecipeItemComponent,
-    RecipeDetailComponent,
-    RecipeBookComponent,
-    RecipeEditComponent
-  ],
+  //  Compoments don't need to be exported
+  //  Since they are imported through RecipeRoutingModule
+  // exports: [
+  //   RecipeListComponent,
+  //   RecipeItemComponent,
+  //   RecipeDetailComponent,
+  //   RecipeBookComponent,
+  //   RecipeEditComponent
+  // ],
   imports: [
     CommonModule,
     RouterModule,
