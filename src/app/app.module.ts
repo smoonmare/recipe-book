@@ -5,36 +5,30 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RecipeService } from './recipe-book/recipe.service';
 import { ShoppingListService } from './shopping-list/shopping-list.service';
 
+import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { RecipesModule } from './recipe-book/recipes.module';
 import { AuthComponent } from './auth/auth.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
-import { DropdownDirective } from './shared/dropdown.directive';
-import { LoadingComponent } from './shared/loading-spinner/loading/loading.component';
-import { AlertComponent } from './shared/alert/alert.component';
-import { PlaceholderDirective } from './shared/alert/placeholder.directive';
+import { RecipesModule } from './recipe-book/recipes.module';
 import { ShoppingListModule } from './shopping-list/shopping-list.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    DropdownDirective,
-    AuthComponent,
-    LoadingComponent,
-    AlertComponent,
-    PlaceholderDirective
+    AuthComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RecipesModule,
-    ShoppingListModule,
+    SharedModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RecipesModule,
+    ShoppingListModule
   ],
   providers: [
     ShoppingListService,
