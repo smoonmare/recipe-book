@@ -4,6 +4,7 @@ import { AlertComponent } from './alert/alert.component';
 import { LoadingComponent } from './loading-spinner/loading/loading.component';
 import { DropdownDirective } from './dropdown.directive';
 import { PlaceholderDirective } from './alert/placeholder.directive';
+// import { LoggingService } from '../logging.service';
 
 
 
@@ -24,5 +25,8 @@ import { PlaceholderDirective } from './alert/placeholder.directive';
     AlertComponent,
     PlaceholderDirective
   ]
+  // Provides the new instance of the service 
+  // each time the new lazy loaded module is laoded
+  // providers: [LoggingService]
 })
 export class SharedModule { }
