@@ -16,7 +16,7 @@ import { ShoppingListEditComponent } from './shopping-list-edit/shopping-list-ed
     FormsModule,
     SharedModule,
     RouterModule.forChild([
-      { path: 'shopping-list', component: ShoppingListComponent }
+      { path: '', component: ShoppingListComponent }
     ]),
   ]
 })
